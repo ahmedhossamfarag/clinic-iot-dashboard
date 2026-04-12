@@ -1,3 +1,10 @@
+<script setup lang="ts">
+import MainLayout from '../components/shared/layout/MainLayout.vue';
+
+</script>
+
 <template>
-    Analytics
+    <MainLayout>
+        Analytics
+    </MainLayout>
 </template>

@@ -1,0 +1,57 @@
+<script setup lang="ts">
+import NavItem from './NavItem.vue';
+import IconAnalytics from '../icons/IconAnalytics.vue';
+import IconDashboard from '../icons/IconDashboard.vue';
+import IconRouterManagment from '../icons/IconRouterManagment.vue';
+import IconSettings from '../icons/IconSettings.vue';
+import IconUserTracking from '../icons/IconUserTracking.vue';
+import IconLogo from '../icons/IconLogo.vue';
+
+const navItems = [
+    {
+        text: 'Dashboard',
+        icon: IconDashboard,
+        to: 'dashboard'
+    },
+    {
+        text: 'Router Managment',
+        icon: IconRouterManagment,
+        to: 'router-managment'
+    },
+    {
+        text: 'User Tracking',
+        icon: IconUserTracking,
+        to: 'user-tracking'
+    },
+    {
+        text: 'Analytics',
+        icon: IconAnalytics,
+        to: 'analytics'
+    },
+    {
+        text: 'Settings',
+        icon: IconSettings,
+        to: 'settings'
+    }
+]
+
+</script>
+
+<template>
+    <div class="w-63.75 flex flex-col items-stretch bg-[#0F172A80] border border-[#1E293B] min-h-screen">
+        <div class="flex gap-3 p-6 items-center">
+            <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-[#259DF4]">
+                <div class="w-6 text-white">
+                    <IconLogo />
+                </div>
+            </div>
+            <div>
+                <p class="font-bold text-white text-[18px]">Cerntral Link</p>
+                <p class="text-xs text-[#94A3B8]">IoT Managment</p>
+            </div>
+        </div>
+        <div class="px-4 flex flex-col items-stretch">
+            <NavItem v-for="item in navItems" v-bind="item" :key="item.to" />
+        </div>
+    </div>
+</template>
