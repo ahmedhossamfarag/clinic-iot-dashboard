@@ -10,7 +10,7 @@ import SignUp from '../components/dashboard/SignUp.vue';
 </script>
 
 <template>
-    <div class="flex justify-center h-full w-full py-13.5 bg-[#101A22]">
+    <div class="flex flex-col items-center h-full w-full py-13.5 bg-[#101A22]">
         <div class="grid grid-cols-2 item justify-stretch gap-2 w-5xl items-stretch">
             <div class="flex flex-col justify-center items-center">
                 <div class="flex flex-col justify-stretch gap-6">
@@ -50,6 +50,9 @@ import SignUp from '../components/dashboard/SignUp.vue';
                 <SignIn />
                 <SignUp />
             </div>
+        </div>
+        <div class="text-center mt-14!">
+            <p class="text-[#64748B] text-xs">© 2024 Nexus AI Solutions. All rights reserved.</p>
         </div>
     </div>
 </template>

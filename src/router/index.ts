@@ -42,4 +42,19 @@ const router = createRouter({
   ],
 })
 
+
+const isAuthenticated = () => {
+  // TODO
+  return true
+}
+
+router.beforeEach((to, from, next) => {
+  if (to.name !== 'auth' && !isAuthenticated()) {
+    next({ name: 'auth' })
+  } else {
+    next()
+  }
+})
+
+
 export default router
