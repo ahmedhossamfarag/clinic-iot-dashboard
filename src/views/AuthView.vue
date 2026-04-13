@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import IconAction from '../components/shared/icons/IconAction.vue';
-import Feature from '../components/dashboard/Feature.vue';
+import Feature from '../components/auth/Feature.vue';
 import IconCompliant from '../components/shared/icons/IconCompliant.vue';
 import IconLogo from '../components/shared/icons/IconLogo.vue';
 import IconAI from '../components/shared/icons/IconAI.vue';
-import SignIn from '../components/dashboard/SignIn.vue';
-import SignUp from '../components/dashboard/SignUp.vue';
+import SignIn from '../components/auth/SignIn.vue';
+import SignUp from '../components/auth/SignUp.vue';
 
 </script>
 
