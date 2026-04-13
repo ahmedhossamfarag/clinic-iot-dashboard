@@ -6,6 +6,7 @@ import IconRouterManagment from '../icons/IconRouterManagment.vue';
 import IconSettings from '../icons/IconSettings.vue';
 import IconUserTracking from '../icons/IconUserTracking.vue';
 import IconLogo from '../icons/IconLogo.vue';
+import Account from './Account.vue';
 
 const navItems = [
     {
@@ -50,8 +51,9 @@ const navItems = [
                 <p class="text-xs text-[#94A3B8]">IoT Managment</p>
             </div>
         </div>
-        <div class="px-4 flex flex-col items-stretch">
+        <div class="px-4 flex flex-col items-stretch grow">
             <NavItem v-for="item in navItems" v-bind="item" :key="item.to" />
         </div>
+        <Account />
     </div>
 </template>
