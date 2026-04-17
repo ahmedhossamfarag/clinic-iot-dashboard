@@ -39,7 +39,7 @@ const navItems = [
 </script>
 
 <template>
-    <div class="w-63.75 flex flex-col items-stretch bg-[#0F172A80] border border-[#1E293B] min-h-screen">
+    <div class="min-w-63.75 flex flex-col items-stretch bg-[#0F172A80] border border-[#1E293B] min-h-screen">
         <div class="flex gap-3 p-6 items-center">
             <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-[#259DF4]">
                 <div class="w-6 text-white">
