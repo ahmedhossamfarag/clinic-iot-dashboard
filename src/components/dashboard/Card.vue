@@ -29,7 +29,7 @@ defineProps({
             <div>
                 <p class="text-sm font-medium text-gray-500">{{ title }}</p>
             </div>
-            <div class="w-8 h-32 flex justify-center items-center rounded-lg" :style="{backgroundColor: iconBg}">
+            <div class="w-8 h-8 flex justify-center items-center rounded-lg" :style="{backgroundColor: iconBg}">
                 <div class="w-5" :style="{color: iconColor}">
                     <component :is="icon"></component>
                 </div>

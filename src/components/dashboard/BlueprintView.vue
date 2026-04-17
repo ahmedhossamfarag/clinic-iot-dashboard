@@ -1,39 +1,58 @@
 <script setup lang="ts">
+import IconBlueprint from '../shared/icons/IconBlueprint.vue';
 import IconFit from '../shared/icons/IconFit.vue';
 import IconMinus from '../shared/icons/IconMinus.vue';
 import IconPlus from '../shared/icons/IconPlus.vue';
+import Blueprint from '../shared/Blueprint.vue';
+import { ref } from 'vue';
 
+const scale = ref(1);
+
+function scaleUp() {
+    if (scale.value >= 2) return;
+    scale.value += 0.1;
+}
+function scaleDown() {
+    if (scale.value <= 0.5) return;
+    scale.value -= 0.1;
+}
+
+function scaleFit() {
+    scale.value = 1;
+}
 
 </script>
 
 <template>
     <div class="w-full rounded-xl bg-[#0F172A70] border border-[#1E293B]">
         <div class="flex p-4 bg-[#1E293B32] border-b border-[#1E293B] gap-2 items-center">
-            <div>
-
+            <div class="w-4 text-[#259DF4]">
+                <IconBlueprint />
             </div>
-            <div>
-                <p>
+            <div class="grow">
+                <p class="font-bold text-white text-base">
                     Clinic Floor Plan
                 </p>
             </div>
-            <div>
-                <IconPlus />
+            <div @click="scaleUp" class="w-7 h-7 flex items-center justify-center rounded bg-[#1E293B] border border-[#334155]">
+                <div class="text-white w-3.5">
+                    <IconPlus />
+                </div>
             </div>
-            <div>
-                <IconMinus />
+            <div @click="scaleDown" class="w-7 h-7 flex items-center justify-center rounded bg-[#1E293B] border border-[#334155]">
+                <div class="text-white w-3.5">
+                    <IconMinus />
+                </div>
             </div>
-            <div>
-                <IconFit />
+            <div @click="scaleFit" class="w-7 h-7 flex items-center justify-center rounded bg-[#1E293B] border border-[#334155]">
+                <div class="text-white w-3.5">
+                    <IconFit />
+                </div>
             </div>
         </div>
-        <div>
-            <div>
-                <div>
-                    <div>
-                        <img />
-                    </div>
-                </div>
+        <div class="p-12" >
+            <div class="overflow-hidden max-w-full" >
+                <Blueprint :style="{scale: scale}" />
             </div>
         </div>
     </div>
