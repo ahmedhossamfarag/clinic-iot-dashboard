@@ -34,25 +34,30 @@ function scaleFit() {
                     Clinic Floor Plan
                 </p>
             </div>
-            <div @click="scaleUp" class="w-7 h-7 flex items-center justify-center rounded bg-[#1E293B] border border-[#334155]">
+            <div @click="scaleUp"
+                class="w-7 h-7 flex items-center justify-center rounded bg-[#1E293B] border border-[#334155]">
                 <div class="text-white w-3.5">
                     <IconPlus />
                 </div>
             </div>
-            <div @click="scaleDown" class="w-7 h-7 flex items-center justify-center rounded bg-[#1E293B] border border-[#334155]">
+            <div @click="scaleDown"
+                class="w-7 h-7 flex items-center justify-center rounded bg-[#1E293B] border border-[#334155]">
                 <div class="text-white w-3.5">
                     <IconMinus />
                 </div>
             </div>
-            <div @click="scaleFit" class="w-7 h-7 flex items-center justify-center rounded bg-[#1E293B] border border-[#334155]">
+            <div @click="scaleFit"
+                class="w-7 h-7 flex items-center justify-center rounded bg-[#1E293B] border border-[#334155]">
                 <div class="text-white w-3.5">
                     <IconFit />
                 </div>
             </div>
         </div>
-        <div class="p-12" >
-            <div class="overflow-hidden max-w-full" >
-                <Blueprint :style="{scale: scale}" />
+        <div class="pt-3 pl-3 bg-[#11202F]">
+            <div class="p-12 bg-[#101925]">
+                <div class="overflow-hidden max-w-full rounded-lg">
+                    <Blueprint :style="{ scale: scale }" />
+                </div>
             </div>
         </div>
     </div>
