@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import Header from '../components/shared/Header.vue';
 import MainLayout from '../components/shared/layout/MainLayout.vue';
+import RouterCard from '../components/router-managment/RouterCard.vue';
 
 const searchQuery = ref('');
 
@@ -22,7 +23,7 @@ const searchQuery = ref('');
                 </div>
             </div>
             <div>
-                
+                <RouterCard />
             </div>
         </div>
     </MainLayout>
