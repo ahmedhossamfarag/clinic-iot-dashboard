@@ -1,3 +1,5 @@
+import router from "@/router"
+
 const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:3000'
 
 function getToken(): string | null {
@@ -26,6 +28,10 @@ function buildHeaders(endpoint: string, isFormData = false): HeadersInit {
 }
 
 async function handleResponse<T>(response: Response): Promise<T> {
+  // 401 Unauthorized
+  if (response.status === 401) {
+    router.push('/auth')
+  }
   if (!response.ok) {
     const error = await response.json().catch(() => ({ message: response.statusText }))
     throw new Error(error?.message ?? `HTTP error ${response.status}`)

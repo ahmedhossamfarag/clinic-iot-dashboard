@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { getData, postData } from '../api/http'
 import type {
   Router,
@@ -64,6 +64,17 @@ export function useRoutersMap() {
   }
 
   return { routersMap, loading, error, fetchRoutersMap }
+}
+
+export function useRouterStatus() {
+  const { routersMap, loading, error, fetchRoutersMap } = useRoutersMap()
+  const routersStatus = computed(() => {
+    if (!routersMap.value) return undefined
+    const status = {} as Record<string, 'ACTIVE' | 'IDLE'>
+    routersMap.value?.forEach(r => status[r.id] = r.connected_devices_count > 0 ? 'ACTIVE' : 'IDLE')
+    return status
+  })
+  return { routersStatus, loading, error, fetchRoutersStatus: fetchRoutersMap }
 }
 
 export function useRouter(id: string) {
