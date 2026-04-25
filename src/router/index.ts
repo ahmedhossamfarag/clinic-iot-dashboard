@@ -2,7 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import AuthView from '@/views/AuthView.vue'
 import DashboardView from '@/views/DashboardView.vue'
 import RouterManagmentView from '@/views/RouterManagmentView.vue'
-import UserTrackingView from '@/views/UserTrackingView.vue'
+import DeviceManagmentView from '@/views/DeviceManagmentView.vue'
+import PatientTrackingView from '@/views/PatientTrackingView.vue'
 import AnalyticsView from '@/views/AnalyticsView.vue'
 import SettingsView from '@/views/SettingsView.vue'
 
@@ -25,9 +26,14 @@ const router = createRouter({
       component: RouterManagmentView
     },
     {
-      path: '/user-tracking',
-      name: 'user-tracking',
-      component: UserTrackingView
+      path: '/device-managment',
+      name: 'device-managment',
+      component: DeviceManagmentView
+    },
+    {
+      path: '/patient-tracking',
+      name: 'patient-tracking',
+      component: PatientTrackingView
     },
     {
       path: '/analytics',

@@ -7,6 +7,7 @@ import IconSettings from '../icons/IconSettings.vue';
 import IconUserTracking from '../icons/IconUserTracking.vue';
 import IconLogo from '../icons/IconLogo.vue';
 import Account from './Account.vue';
+import IconDevice from '../icons/IconDevice.vue';
 
 const navItems = [
     {
@@ -20,9 +21,14 @@ const navItems = [
         to: 'router-managment'
     },
     {
-        text: 'User Tracking',
+        text: 'Device Managment',
+        icon: IconDevice,
+        to: 'device-managment'
+    },
+    {
+        text: 'Patient Tracking',
         icon: IconUserTracking,
-        to: 'user-tracking'
+        to: 'patient-tracking'
     },
     {
         text: 'Analytics',

@@ -5,6 +5,6 @@ import MainLayout from '../components/shared/layout/MainLayout.vue';
 
 <template>
     <MainLayout>
-        User Tracking
+        Device Managment
     </MainLayout>
 </template>
