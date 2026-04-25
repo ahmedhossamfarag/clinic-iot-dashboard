@@ -4,15 +4,14 @@ import Feature from '../components/auth/Feature.vue';
 import IconCompliant from '../components/shared/icons/IconCompliant.vue';
 import IconLogo from '../components/shared/icons/IconLogo.vue';
 import IconAI from '../components/shared/icons/IconAI.vue';
-import SignIn from '../components/auth/SignIn.vue';
-import SignUp from '../components/auth/SignUp.vue';
+import AuthTabs from '../components/auth/AuthTabs.vue';
 
 </script>
 
 <template>
     <div class="flex flex-col items-center h-full w-full py-13.5 bg-[#101A22]">
         <div class="grid grid-cols-2 item justify-stretch gap-2 w-5xl items-stretch">
-            <div class="flex flex-col justify-center items-center">
+            <div class="flex flex-col items-center pt-14">
                 <div class="flex flex-col justify-stretch gap-6">
                     <div class="flex gap-2 text-[#259DF4]">
                         <div class="w-8">
@@ -47,8 +46,7 @@ import SignUp from '../components/auth/SignUp.vue';
                 </div>
             </div>
             <div class="flex flex-col justify-center items-center gap-8">
-                <SignIn />
-                <SignUp />
+                <AuthTabs />
             </div>
         </div>
         <div class="text-center mt-14!">

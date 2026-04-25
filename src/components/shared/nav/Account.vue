@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { useAccount } from '../../../utils/hooks/account';
 import PlaceHolder from '../layout/PlaceHolder.vue';
-const account = useAccount();
+const account = {name: 'John Doe'}
 
 </script>
 

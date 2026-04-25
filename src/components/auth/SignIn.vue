@@ -4,11 +4,12 @@ import IconEye from '../shared/icons/IconEye.vue';
 import IconHospital from '../shared/icons/IconHospital.vue';
 import IconLock from '../shared/icons/IconLock.vue';
 import router from '../../router';
+import { useLogin } from '../../utils/hooks/auth';
+const { loading, error, login } = useLogin()
 
 const user = ref({
     hospitalID: '',
-    password: '',
-    rememberMe: false
+    password: ''
 })
 
 const passwordVisible = ref(false)
@@ -17,15 +18,10 @@ const togglePasswordVisibility = () => {
     passwordVisible.value = !passwordVisible.value
 }
 
-const forgetPassword = () => {
-    // TODO
-    router.push({ name: 'dashboard' })
-}
-
-
 const sumbitForm = () => {
-    // TODO
-    router.push({ name: 'dashboard' })
+    if (!user.value.hospitalID || !user.value.password) return
+    login({ hospital_id: user.value.hospitalID, password: user.value.password })
+    .then(res => router.push({ name: 'dashboard' }))
 }
 
 </script>
@@ -48,21 +44,18 @@ const sumbitForm = () => {
                     <div class="w-5 text-[#94A3B8] absolute top-1/2 -translate-y-1/2 left-4">
                         <IconHospital />
                     </div>
-                    <input v-model="user.hospitalID" placeholder="HOSP-4829-X" class="pl-11!" />
+                    <input v-model="user.hospitalID" name="username" placeholder="HOSP-4829-X" class="pl-11!" />
                 </div>
             </div>
             <div class="flex flex-col gap-2.5">
                 <div class="flex justify-between">
                     <p class="text-[14px] text-[#CBD5E1] font-medium">Password</p>
-                    <button @click="forgetPassword">
-                        <p class="text-[14px] text-[#259DF4] font-medium">Forget Password?</p>
-                    </button>
                 </div>
                 <div class="relative">
                     <div class="w-5 text-[#94A3B8] absolute top-1/2 -translate-y-1/2 left-4">
                         <IconLock />
                     </div>
-                    <input v-model="user.password" :type="passwordVisible ? 'text' : 'password'" placeholder="••••••••"
+                    <input v-model="user.password" name="password" :type="passwordVisible ? 'text' : 'password'" placeholder="••••••••"
                         class="pl-11! " />
                     <button @click="togglePasswordVisibility"
                         class="w-5 text-[#94A3B8] absolute top-1/2 -translate-y-1/2 right-4"
@@ -71,18 +64,8 @@ const sumbitForm = () => {
                     </button>
                 </div>
             </div>
-            <div class="flex gap-2 items-center">
-                <div class="flex items-center w-4">
-                    <input v-model="user.rememberMe" type="checkbox" />
-                </div>
-                <div>
-                    <p>
-                        Keep me logged in for 30 days
-                    </p>
-                </div>
-            </div>
             <div>
-                <button @click="sumbitForm"
+                <button @click="sumbitForm" :disabled="loading"
                     class="text-white flex items-center gap-2 justify-center w-full bg-[#259DF4] p-4 rounded-lg shadow">
                     Initialize Secure Session
                     <span class="w-3.5 text-white">
@@ -93,6 +76,9 @@ const sumbitForm = () => {
                         </svg>
                     </span>
                 </button>
+            </div>
+            <div class="text-red-500 text-sm" v-if="error">
+                <p>{{ error }}</p>
             </div>
         </div>
     </div>
