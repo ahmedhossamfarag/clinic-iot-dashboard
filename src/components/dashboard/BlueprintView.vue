@@ -4,7 +4,15 @@ import IconFit from '../shared/icons/IconFit.vue';
 import IconMinus from '../shared/icons/IconMinus.vue';
 import IconPlus from '../shared/icons/IconPlus.vue';
 import Blueprint from '../shared/Blueprint.vue';
-import { ref } from 'vue';
+import { ref, type PropType } from 'vue';
+import type { RouterMapEntry } from '../../utils/types';
+
+defineProps({
+    routersMap: {
+        type: Array as PropType<RouterMapEntry[]>,
+        default: () => []
+    }
+})
 
 const scale = ref(1);
 
@@ -56,7 +64,7 @@ function scaleFit() {
         <div class="pt-3 pl-3 bg-[#11202F]">
             <div class="p-12 bg-[#101925]">
                 <div class="overflow-hidden max-w-full rounded-lg">
-                    <Blueprint :style="{ scale: scale }" />
+                    <Blueprint :style="{ scale: scale }" :items="routersMap" />
                 </div>
             </div>
         </div>

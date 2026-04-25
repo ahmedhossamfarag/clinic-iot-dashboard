@@ -5,7 +5,6 @@ defineProps({
         required: true
     },
     text: {
-        type: String,
         required: true
     },
     icon: {
