@@ -20,6 +20,14 @@ export interface AuthResponse {
 
 // ─── Settings ────────────────────────────────────────────────────────────────
 
+export interface Settings {
+  hospital_id: string
+  name: string
+  address: string
+  admin_name: string
+  admin_email: string
+}
+
 export interface UpdateSettingsPayload {
   name?: string
   address?: string
