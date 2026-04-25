@@ -1,44 +1,83 @@
-import { ref } from "vue";
-
-
-export type Device = {
-    id: String,
-    holder_name: String,
-    router_id: String,
-    router_name: String,
-    last_record_timestamp: Date
-}
-
-
+import { ref } from 'vue'
+import { getData, postData, putData } from '../api/http'
+import type { Device, DeviceWithRouterInfo, CreateDevicePayload } from '../types'
 
 export function useDevices() {
-    const devices = ref<Device[] | undefined>
-        (
-            undefined,
-        );
-    // TODO
-    devices.value = [
-        {
-            id: 'IT-4402',
-            holder_name: 'Alex Rivers',
-            router_id: 'Node #842',
-            router_name: 'Living Room Gateway',
-            last_record_timestamp: new Date('0-0-0T23:59:59'),
-        },
-        {
-            id: 'IT-4403',
-            holder_name: 'John Doe',
-            router_id: 'Node #843',
-            router_name: 'Kitchen Gateway',
-            last_record_timestamp: new Date('0-0-0T22:59:59'),
-        },
-        {
-            id: 'IT-4404',
-            holder_name: 'Smith Chart',
-            router_id: 'Node #844',
-            router_name: 'Bedroom Gateway',
-            last_record_timestamp: new Date('0-0-0T21:59:59'),
-        }
-    ];
-    return devices;
+  const devices = ref<Device[] | undefined>(undefined)
+  const loading = ref(false)
+  const error = ref<string | undefined>(undefined)
+
+  async function fetchDevices(): Promise<void> {
+    loading.value = true
+    error.value = undefined
+    try {
+      const response = await getData<{ devices: Device[] }>('/devices')
+      devices.value = response.devices
+    } catch (err) {
+      error.value = (err as Error).message
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  async function createDevice(payload: CreateDevicePayload): Promise<void> {
+    loading.value = true
+    error.value = undefined
+    try {
+      await postData<void>('/devices', payload)
+      await fetchDevices()
+    } catch (err) {
+      error.value = (err as Error).message
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  return { devices, loading, error, fetchDevices, createDevice }
+}
+
+export function useDevicesWithRouterInfo() {
+  const devices = ref<DeviceWithRouterInfo[] | undefined>(undefined)
+  const loading = ref(false)
+  const error = ref<string | undefined>(undefined)
+
+  async function fetchDevicesWithRouterInfo(): Promise<void> {
+    loading.value = true
+    error.value = undefined
+    try {
+      const response = await getData<{ devices: DeviceWithRouterInfo[] }>(
+        '/devices/with-routers-info',
+      )
+      devices.value = response.devices
+    } catch (err) {
+      error.value = (err as Error).message
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  return { devices, loading, error, fetchDevicesWithRouterInfo }
+}
+
+export function useReleaseDevice() {
+  const loading = ref(false)
+  const error = ref<string | undefined>(undefined)
+
+  async function releaseDevice(id: string): Promise<void> {
+    loading.value = true
+    error.value = undefined
+    try {
+      await putData<void>(`/devices/${id}/release`, {})
+    } catch (err) {
+      error.value = (err as Error).message
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  return { loading, error, releaseDevice }
 }

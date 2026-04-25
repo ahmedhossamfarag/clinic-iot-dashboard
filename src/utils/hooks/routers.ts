@@ -1,91 +1,137 @@
-import { computed, ref } from "vue";
+import { ref } from 'vue'
+import { getData, postData } from '../api/http'
+import type {
+  Router,
+  RouterMapEntry,
+  RouterHourlySession,
+  DeviceWithRouterInfo,
+  CreateRouterPayload,
+} from '../types'
 
-export type Router = {
-    id: String,
-    name: String,
-    location_x: number,
-    location_y: number,
+export function useRouters() {
+  const routers = ref<Router[] | undefined>(undefined)
+  const loading = ref(false)
+  const error = ref<string | undefined>(undefined)
+
+  async function fetchRouters(): Promise<void> {
+    loading.value = true
+    error.value = undefined
+    try {
+      const response = await getData<{ routers: Router[] }>('/routers')
+      routers.value = response.routers
+    } catch (err) {
+      error.value = (err as Error).message
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  async function createRouter(payload: CreateRouterPayload): Promise<void> {
+    loading.value = true
+    error.value = undefined
+    try {
+      await postData<void>('/routers', payload)
+      await fetchRouters()
+    } catch (err) {
+      error.value = (err as Error).message
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  return { routers, loading, error, fetchRouters, createRouter }
 }
 
-export type RouterMap = {
-    id: String,
-    location_x: number,
-    location_y: number,
-    connected_devices_count: number
+export function useRoutersMap() {
+  const routersMap = ref<RouterMapEntry[] | undefined>(undefined)
+  const loading = ref(false)
+  const error = ref<string | undefined>(undefined)
+
+  async function fetchRoutersMap(): Promise<void> {
+    loading.value = true
+    error.value = undefined
+    try {
+      const response = await getData<{ routers_map: RouterMapEntry[] }>('/routers/map')
+      routersMap.value = response.routers_map
+    } catch (err) {
+      error.value = (err as Error).message
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  return { routersMap, loading, error, fetchRoutersMap }
 }
 
-export enum RouterStatus {
-    ACTIVE = 'ACTIVE',
-    IDEAL = 'IDEAL'
+export function useRouter(id: string) {
+  const router = ref<Router | undefined>(undefined)
+  const loading = ref(false)
+  const error = ref<string | undefined>(undefined)
+
+  async function fetchRouter(): Promise<void> {
+    loading.value = true
+    error.value = undefined
+    try {
+      const response = await getData<{ router: Router }>(`/routers/${id}`)
+      router.value = response.router
+    } catch (err) {
+      error.value = (err as Error).message
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  return { router, loading, error, fetchRouter }
 }
 
-export function userRouters() {
-    const routers = ref<Router[] | undefined>
-        (
-            undefined,
-        );
-    // TODO
-    routers.value = [
-        {
-            id: 'Node #842',
-            name: 'Living Room Gateway',
-            location_x: 0.2,
-            location_y: 0.2,
-        },
-        {
-            id: 'Node #843',
-            name: 'Kitchen Gateway',
-            location_x: 0.4,
-            location_y: 0.4,
-        },
-        {
-            id: 'Node #844',
-            name: 'Bedroom Gateway',
-            location_x: 0.6,
-            location_y: 0.2,
-        }
-    ]
-    return routers;
+export function useRouterDevices(id: string) {
+  const devices = ref<DeviceWithRouterInfo[] | undefined>(undefined)
+  const loading = ref(false)
+  const error = ref<string | undefined>(undefined)
+
+  async function fetchRouterDevices(): Promise<void> {
+    loading.value = true
+    error.value = undefined
+    try {
+      const response = await getData<{ devices: DeviceWithRouterInfo[] }>(
+        `/routers/${id}/devices`,
+      )
+      devices.value = response.devices
+    } catch (err) {
+      error.value = (err as Error).message
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  return { devices, loading, error, fetchRouterDevices }
 }
 
-export function useRoutersMap(){
-    const routersDetails = ref<RouterMap[]|undefined>(undefined)
-    // TODO
-    routersDetails.value = [
-        {
-            id: 'Node #842',
-            location_x: 0.2,
-            location_y: 0.2,
-            connected_devices_count: 10,
-        },
-        {
-            id: 'Node #843',
-            location_x: 0.4,
-            location_y: 0.4,
-            connected_devices_count: 5,
-        },
-        {
-            id: 'Node #844',
-            location_x: 0.6,
-            location_y: 0.2,
-            connected_devices_count: 8,
-        }
-    ]
-    return routersDetails
-}
+export function useRouterHourlySessions(id: string) {
+  const hourlySessions = ref<RouterHourlySession[] | undefined>(undefined)
+  const loading = ref(false)
+  const error = ref<string | undefined>(undefined)
 
-export function useRouterStatus(){
-    const routersMap = useRoutersMap()
-    const routersStatus = computed(
-        () => {
-            return routersMap.value?.map(r => {
-                return {
-                    id: r.id,
-                    status: r.connected_devices_count > 0 ? RouterStatus.ACTIVE : RouterStatus.IDEAL
-                }
-            })
-        }
-    )
+  async function fetchRouterHourlySessions(): Promise<void> {
+    loading.value = true
+    error.value = undefined
+    try {
+      const response = await getData<{ hourly_sessions: RouterHourlySession[] }>(
+        `/routers/${id}/hourly-sessions-duration`,
+      )
+      hourlySessions.value = response.hourly_sessions
+    } catch (err) {
+      error.value = (err as Error).message
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
 
-    return routersStatus
+  return { hourlySessions, loading, error, fetchRouterHourlySessions }
 }
