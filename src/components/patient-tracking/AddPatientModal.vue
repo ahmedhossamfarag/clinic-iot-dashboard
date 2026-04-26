@@ -129,7 +129,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, watch } from 'vue'
+import { onMounted, reactive, watch } from 'vue'
 import { usePatients } from '../../utils/hooks/patients'
 import { useDevices } from '../../utils/hooks/devices';
 
@@ -143,7 +143,7 @@ const emit = defineEmits<{
 }>()
 
 const { loading, error, createPatient } = usePatients()
-const { loading: loadingDevices, error: errorDevices, devices } = useDevices()
+const { loading: loadingDevices, error: errorDevices, devices, fetchDevices } = useDevices()
 
 interface FormState {
   name: string
@@ -211,6 +211,11 @@ watch(
   () => props.modelValue,
   (open) => { if (open) resetForm() }
 )
+
+onMounted(() => {
+  fetchDevices()
+})
+
 </script>
 
 <style scoped>
