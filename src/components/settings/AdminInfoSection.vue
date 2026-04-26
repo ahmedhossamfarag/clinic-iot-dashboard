@@ -4,10 +4,6 @@ defineProps<{
   adminEmail: string
 }>()
 
-const emit = defineEmits<{
-  (e: 'update:adminName', value: string): void
-  (e: 'update:adminEmail', value: string): void
-}>()
 </script>
 
 <template>
@@ -23,7 +19,6 @@ const emit = defineEmits<{
           <input
             type="text"
             :value="adminName"
-            @input="emit('update:adminName', ($event.target as HTMLInputElement).value)"
             class="bg-[#111827] border border-gray-600 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
           />
         </div>
@@ -34,7 +29,6 @@ const emit = defineEmits<{
           <input
             type="email"
             :value="adminEmail"
-            @input="emit('update:adminEmail', ($event.target as HTMLInputElement).value)"
             class="bg-[#111827] border border-gray-600 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
           />
         </div>

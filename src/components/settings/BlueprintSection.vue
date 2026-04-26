@@ -35,7 +35,7 @@ function viewFullMap() {
     <div class="bg-[#1a1f2e] border border-gray-700 rounded-xl p-6">
       <div class="flex items-center gap-5">
         <!-- Blueprint Preview Thumbnail -->
-        <div class="w-24 h-24 flex-shrink-0 bg-[#111827] border-2 border-dashed border-gray-600 rounded-xl flex items-center justify-center overflow-hidden">
+        <div class="w-24 h-24 shrink-0 bg-[#111827] border-2 border-dashed border-gray-600 rounded-xl flex items-center justify-center overflow-hidden">
           <img
             v-if="blueprintUrl"
             :src="blueprintUrl"

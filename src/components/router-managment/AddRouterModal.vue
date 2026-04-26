@@ -15,7 +15,7 @@
           @click.stop
         >
           <!-- Top accent line -->
-          <div class="h-px w-full bg-gradient-to-r from-transparent via-blue-500/60 to-transparent" />
+          <div class="h-px w-full bg-linear-to-r from-transparent via-blue-500/60 to-transparent" />
 
           <div class="p-7">
             <!-- Header -->

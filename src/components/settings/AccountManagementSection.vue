@@ -37,7 +37,7 @@ async function handleDeleteAccount() {
           <p class="text-red-400 text-sm font-semibold">Delete All Patient Records</p>
           <p class="text-red-500/70 text-xs mt-0.5">All patient info and records will be permanently removed.</p>
         </div>
-        <div class="flex items-center gap-2 flex-shrink-0">
+        <div class="flex items-center gap-2 shrink-0">
           <button
             v-if="showDeleteRecordsConfirm"
             @click="showDeleteRecordsConfirm = false"
@@ -61,7 +61,7 @@ async function handleDeleteAccount() {
           <p class="text-red-400 text-sm font-semibold">Delete Administrator Account</p>
           <p class="text-red-500/70 text-xs mt-0.5">Once deleted, you will lose all access to the MediIoT management console.</p>
         </div>
-        <div class="flex items-center gap-2 flex-shrink-0">
+        <div class="flex items-center gap-2 shrink-0">
           <button
             v-if="showDeleteAccountConfirm"
             @click="showDeleteAccountConfirm = false"
