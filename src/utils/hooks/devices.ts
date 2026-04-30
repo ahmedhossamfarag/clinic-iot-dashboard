@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { getData, postData, putData } from '../api/http'
 import type { Device, DeviceWithRouterInfo, CreateDevicePayload } from '../types'
 
@@ -60,6 +60,18 @@ export function useDevicesWithRouterInfo() {
   }
 
   return { devices, loading, error, fetchDevicesWithRouterInfo }
+}
+
+export function useDevicesPatients() {
+  const { devices, loading, error, fetchDevices } = useDevices()
+  const devicesPatients = computed(() => {
+    if (!devices.value) return undefined
+    const patients = {} as Record<string, string | null>
+    devices.value?.forEach(d => patients[d.id] = d.patient_id)
+    return patients
+  })
+
+  return { devicesPatients, loading, error, fetchDevicesPatients: fetchDevices }
 }
 
 export function useReleaseDevice() {

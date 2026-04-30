@@ -17,7 +17,7 @@
           <!-- Top accent line -->
           <div class="h-px w-full bg-linear-to-r from-transparent via-blue-500/60 to-transparent" />
 
-          <div class="p-7">
+          <div class="p-7 flex flex-col gap-4">
             <!-- Header -->
             <div class="flex items-start justify-between mb-7">
               <div>
@@ -35,7 +35,7 @@
             </div>
 
             <!-- Form -->
-            <div class="space-y-5">
+            <div class="space-y-5 flex flex-col gap-4">
               <!-- User Name -->
               <div>
                 <label class="block text-xs font-semibold text-white/50 tracking-widest uppercase mb-2">
@@ -68,23 +68,15 @@
                       ? 'border-red-500/60 focus:border-red-500 focus:ring-red-500/30'
                       : 'border-white/10 focus:border-blue-500/60 focus:ring-blue-500/20'"
                   >
-                    <option disabled selected>Device ID</option>
+                    <option disabled selected>Device Name</option>
                     <option
-                      v-for="device in devices"
+                      v-for="device in freeDevices"
                       :key="device.id"
                       :value="device.id"
                     >
                       {{ device.name }}
                     </option>
                 </select>
-                  <button
-                    type="button"
-                    :disabled="loading"
-                    class="absolute right-2 top-1/2 -translate-y-1/2 px-2.5 py-1.5 text-xs text-blue-400 hover:text-blue-300 bg-blue-500/10 hover:bg-blue-500/20 rounded-md transition-all duration-150 font-mono disabled:opacity-40 disabled:cursor-not-allowed"
-                    @click="generateUUID"
-                  >
-                    Generate
-                  </button>
                 </div>
                 <p v-if="errors.device_id" class="mt-1.5 text-xs text-red-400">{{ errors.device_id }}</p>
               </div>
@@ -129,7 +121,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, watch } from 'vue'
+import { computed, onMounted, reactive, watch } from 'vue'
 import { usePatients } from '../../utils/hooks/patients'
 import { useDevices } from '../../utils/hooks/devices';
 
@@ -144,6 +136,8 @@ const emit = defineEmits<{
 
 const { loading, error, createPatient } = usePatients()
 const { loading: loadingDevices, error: errorDevices, devices, fetchDevices } = useDevices()
+
+const freeDevices = computed(() => devices.value?.filter(device => !device.patient_id))
 
 interface FormState {
   name: string
