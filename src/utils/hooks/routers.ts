@@ -63,7 +63,16 @@ export function useRoutersMap() {
     }
   }
 
-  return { routersMap, loading, error, fetchRoutersMap }
+  async function fetchRoutersMapSilently(): Promise<void> {
+   try {
+      const response = await getData<{ routers_map: RouterMapEntry[] }>('/routers/map')
+      routersMap.value = response.routers_map
+    } catch (err) {
+    }
+  }
+
+
+  return { routersMap, loading, error, fetchRoutersMap, fetchRoutersMapSilently }
 }
 
 export function useRouterStatus() {
