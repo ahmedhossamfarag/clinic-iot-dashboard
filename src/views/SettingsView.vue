@@ -12,11 +12,11 @@ import MainLayout from '../components/shared/layout/MainLayout.vue'
 const { settings, loading, error, fetchSettings, updateSettings } = useSettings()
 
 // Form state - v-model bound to child section props
-const hospitalName = ref('St. Metropolitan General Hospital')
-const facilityId = ref('GH-992-IOT')
-const address = ref('1200 Healthcare Way, North Wing, Suite 400, NY 10001')
-const adminName = ref('Sarah Smith')
-const adminEmail = ref('s.smith@stmetro.org')
+const hospitalName = ref('')
+const facilityId = ref('')
+const address = ref('')
+const adminName = ref('')
+const adminEmail = ref('')
 
 // Password section ref
 const passwordSectionRef = ref<InstanceType<typeof PasswordResetSection> | null>(null)
