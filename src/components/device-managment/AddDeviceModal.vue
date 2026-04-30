@@ -17,7 +17,7 @@
           <!-- Top accent line -->
           <div class="h-px w-full bg-linear-to-r from-transparent via-blue-500/60 to-transparent" />
 
-          <div class="p-7">
+          <div class="p-7 flex flex-col gap-3">
             <!-- Header -->
             <div class="flex items-start justify-between mb-7">
               <div>
@@ -35,7 +35,7 @@
             </div>
 
             <!-- Form -->
-            <div class="space-y-5">
+            <div class="space-y-5 flex flex-col gap-3">
               <!-- Device Name -->
               <div>
                 <label class="block text-xs font-semibold text-white/50 tracking-widest uppercase mb-2">
