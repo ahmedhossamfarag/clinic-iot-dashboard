@@ -27,12 +27,12 @@
 
     <!-- Actions -->
     <div class="flex items-center gap-2.5">
-      <RouterLink
-        :to="`/routers-management/${node.id}`"
+      <button
+        @click="emit('view-details', props.router)"
         class="flex-1 py-2.5 bg-sky-400/10 border border-sky-400/25 rounded-xl text-sky-400 text-sm font-semibold text-center hover:bg-sky-400/20 hover:border-sky-400/50 transition-all duration-200"
       >
         View Details
-      </RouterLink>
+      </button>
     </div>
 
   </div>
@@ -42,6 +42,7 @@
 import { ref, computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import IconRouter from '../shared/icons/IconRouter.vue'
+import type { Router } from '@/utils/types'
 
 interface Node {
   id: string | number
@@ -49,7 +50,7 @@ interface Node {
   status: 'ACTIVE' | 'IDLE'
 }
 
-const props = withDefaults(defineProps<{ node?: Node }>(), {
+const props = withDefaults(defineProps<{ node: Node, router: Router}>(), {
   node: () => ({
     id: 842,
     name: 'Node #842',
@@ -58,7 +59,7 @@ const props = withDefaults(defineProps<{ node?: Node }>(), {
 })
 
 const emit = defineEmits<{
-  (e: 'view-details', node: Node): void
+  (e: 'view-details', router: Router): void
 }>()
 
 const statusClasses = computed(() => {

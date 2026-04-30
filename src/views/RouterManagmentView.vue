@@ -5,6 +5,11 @@ import MainLayout from '../components/shared/layout/MainLayout.vue';
 import RouterCard from '../components/router-managment/RouterCard.vue';
 import { useRouters, useRouterStatus } from '../utils/hooks/routers';
 import PlaceHolder from '../components/shared/layout/PlaceHolder.vue';
+import AddPatientModal from '../components/patient-tracking/AddPatientModal.vue';
+import { useNotifications } from '../utils/hooks/notifications';
+import AddRouterModal from '@/components/router-managment/AddRouterModal.vue';
+import type { Router } from '@/utils/types';
+import RouterDetailsModal from '@/components/router-managment/RouterDetailsModal.vue';
 
 const { routers, loading, fetchRouters } = useRouters();
 const { routersStatus, loading: statusLoading, fetchRoutersStatus } = useRouterStatus();
@@ -21,6 +26,37 @@ const filteredRouters = computed(() => {
     return res
 });
 
+const modalVisible = ref(false);
+
+const { success } = useNotifications();
+
+function addNewRouter(){
+    modalVisible.value = true;
+}
+
+function closeModal(){
+    modalVisible.value = false;
+}
+
+const selectedRouter = ref<Router|null>(null);
+
+function openRouterDetails(router: Router){
+    selectedRouter.value = router;
+}
+
+function closeRouterDetails(){
+    selectedRouter.value = null;
+}
+
+
+
+function addNewRouterSuccess(){
+    modalVisible.value = false;
+    success('Router added successfully');
+    fetchRouters();
+    fetchRoutersStatus();
+}
+
 
 onMounted(() => {
     fetchRouters();
@@ -31,7 +67,7 @@ onMounted(() => {
 
 <template>
     <MainLayout>
-        <Header v-model="searchQuery" search-placeholder="Search Routers ..." add-new-text="Add Router" />
+        <Header v-model="searchQuery" search-placeholder="Search Routers ..." add-new-text="Add Router" @add-new="addNewRouter" />
         <div class="p-8 flex flex-col gap-8 items-stretch">
             <div class="flex gap-6 justify-between items-center">
                 <div class="flex flex-col g-2">
@@ -76,11 +112,15 @@ onMounted(() => {
             </div>
             <PlaceHolder v-if="loading || statusLoading" class="h-120" />
             <div>
-                <div v-if="routers && routersStatus" class="flex gap-6 flex-wrap">
+                <div v-if="routers && routersStatus" class="flex gap-4 flex-wrap">
                     <RouterCard v-for="router in filteredRouters" :key="router.id"
-                        :node="{ id: router.id, name: router.name, status: routersStatus?.[router.id] || 'IDLE' }" />
+                        :node="{ id: router.id, name: router.name, status: routersStatus?.[router.id] || 'IDLE' }"
+                        :router="router"
+                        @view-details="openRouterDetails(router)" />
                 </div>
             </div>
         </div>
     </MainLayout>
+    <AddRouterModal :model-value="modalVisible" @update:model-value="closeModal" @success="addNewRouterSuccess" />
+    <RouterDetailsModal v-if="selectedRouter !== null" :model-value="selectedRouter !== null" :router="selectedRouter!" @update:model-value="closeRouterDetails" />
 </template>

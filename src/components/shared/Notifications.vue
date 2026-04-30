@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed top-5 right-1/2 transform -translate-x-1/2 z-9999 space-y-2.5">
+  <div class="fixed top-5 right-1/2 z-9999 space-y-2.5">
     <div
       v-for="n in notifications"
       :key="n.id"

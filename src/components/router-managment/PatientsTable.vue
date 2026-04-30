@@ -4,7 +4,7 @@ import type { DeviceWithRouterInfo } from '../../utils/types';
 import IconChevron from '../shared/icons/IconChevron.vue';
 const ACTIVE_TIMEOUT = Number(import.meta.env.VITE_ACTIVE_TIMEOUT) || 60;
 const IDLE_TIMEOUT = Number(import.meta.env.VITE_IDLE_TIMEOUT) || 120;
-const GROUP_SIZE = 4;
+const GROUP_SIZE = 3;
 
 
 const props = defineProps<{
@@ -49,7 +49,7 @@ const getStatus = (timestamp: string) => {
     <div class="flex justify-between items-start mb-8">
       <div>
         <h2 class="text-xl font-semibold text-white">Tracked Active Users</h2>
-        <p class="text-sm text-slate-500">Real-time geolocation and device health</p>
+        <!-- <p class="text-sm text-slate-500">Real-time geolocation and device health</p> -->
       </div>
     </div>
 
@@ -58,11 +58,8 @@ const getStatus = (timestamp: string) => {
         <thead>
           <tr class="text-[11px] uppercase tracking-wider text-slate-500 border-b border-slate-800">
             <th class="pb-4 font-semibold">User Details</th>
-            <th class="pb-4 font-semibold">Last Location</th>
             <th class="pb-4 font-semibold text-center">Status</th>
             <th class="pb-4 font-semibold">Device Info</th>
-            <th class="pb-4 font-semibold">Last Update</th>
-            <th class="pb-4"></th>
           </tr>
         </thead>
         <tbody class="divide-y divide-slate-800/50">
@@ -77,13 +74,6 @@ const getStatus = (timestamp: string) => {
               </div>
             </td>
 
-            <td class="py-4">
-              <div class="flex items-center gap-2 text-sm">
-                <MapPin :size="14" class="text-slate-500" />
-                <span>{{ device.router_name }}</span>
-              </div>
-            </td>
-
             <td class="py-4 text-center">
               <span
                 :class="['px-2.5 py-0.5 rounded-full text-[10px] font-bold border flex items-center justify-center w-fit mx-auto gap-1.5', getStatus(device.last_record_timestamp).class]">
@@ -94,20 +84,10 @@ const getStatus = (timestamp: string) => {
 
             <td class="py-4">
               <div class="flex flex-col">
-                <span class="text-sm text-slate-300">Node #{{ device.router_id.split('-')[0] }}</span>
-                <span class="text-[11px] text-slate-600">Firmware {{ device.name }}</span>
+                <span class="text-sm text-slate-300">{{ device.name }}</span>
               </div>
             </td>
 
-            <td class="py-4">
-              <span class="text-sm text-slate-400">{{ device.last_record_timestamp }}</span>
-            </td>
-
-            <td class="py-4 text-right">
-              <button class="p-1 hover:bg-slate-700 rounded transition-colors text-slate-500">
-                <MoreVertical :size="18" />
-              </button>
-            </td>
           </tr>
         </tbody>
       </table>
@@ -115,19 +95,19 @@ const getStatus = (timestamp: string) => {
 
     <div class="flex justify-between items-center mt-8 pt-4 border-t border-slate-800">
       <p class="text-xs text-slate-500">
-        Showing{{ groupDevices.length }} of {{ devices.length }}
+        Showing {{ groupDevices.length }} of {{ devices.length }}
       </p>
       <div class="flex items-center gap-1">
-        <button class="p-2 hover:bg-slate-800 rounded text-white w-4" @click="prevGroup">
-          <IconChevron />
+        <button class="w-8 h-8 flex items-center justify-center rounded text-white text-xs font-bold hover:bg-gray-500" @click="prevGroup">
+          <IconChevron class="w-4" />
         </button>
         <button v-for="i in groupsCount" :key="i"
           class="w-8 h-8 flex items-center justify-center rounded text-white text-xs font-bold"
-          :class="{ 'bg-sky-500': group == i - 1 }" @click="setGroup(i-1)">
+          :class="{ 'bg-sky-500': group == i - 1, ' hover:bg-gray-500': group != i - 1}" @click="setGroup(i-1)">
           {{ i }}
         </button>
-        <button class="p-2 hover:bg-slate-800 rounded text-white w-4" @click="nextGroup">
-          <IconChevron />
+        <button class="w-8 h-8 flex items-center justify-center rounded text-white text-xs font-bold -scale-x-100 hover:bg-gray-500" @click="nextGroup">
+          <IconChevron class="w-4" />
         </button>
       </div>
     </div>

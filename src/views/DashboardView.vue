@@ -25,7 +25,7 @@ onMounted(() => fetchRoutersMap())
         <div class="p-8 flex flex-col gap-8 items-stretch">
             <PlaceHolder v-if="loading" class="h-32" />
             <div class="flex gap-6">
-                <Card title="Active Routers" :icon="IconRouter" :text="activeDevices" icon-color="#259DF4"
+                <Card title="Active Routers" :icon="IconRouter" :text="activeRouters" icon-color="#259DF4"
                     icon-bg="#259DF416" />
                 <Card title="Active Devices" :icon="IconDevice" :text="activeDevices" icon-color="#10B981"
                     icon-bg="#10B98116" />
