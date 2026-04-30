@@ -14,6 +14,7 @@ export function useLogin() {
       const response = await postData<AuthResponse>('/auth/login', payload)
       data.value = response
       localStorage.setItem('token', response.token)
+      localStorage.setItem('hospitalId', payload.hospital_id)
       return response
     } catch (err) {
       error.value = (err as Error).message
@@ -43,6 +44,7 @@ export function useSignup() {
       const response = await postData<AuthResponse>('/auth/signup', payload)
       data.value = response
       localStorage.setItem('token', response.token)
+      localStorage.setItem('hospitalId', payload.hospital_id)
       return response
     } catch (err) {
       error.value = (err as Error).message

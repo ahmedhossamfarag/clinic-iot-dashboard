@@ -42,6 +42,12 @@ const navItems = [
     }
 ]
 
+function logout(){
+    localStorage.removeItem('token')
+    localStorage.removeItem('hospitalId')
+    window.location.href = '/auth'
+}
+
 </script>
 
 <template>
@@ -60,6 +66,9 @@ const navItems = [
         <div class="px-4 flex flex-col items-stretch grow">
             <NavItem v-for="item in navItems" v-bind="item" :key="item.to" />
         </div>
+        <button @click="logout" class="text-white font-medium text-sm flex items-center gap-2 justify-center bg-[hsl(221,41%,15%)] px-4 py-2 rounded-lg h-9 m-4!">
+            Logout
+        </button>
         <Account />
     </div>
 </template>
