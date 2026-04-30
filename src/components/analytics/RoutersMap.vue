@@ -31,9 +31,6 @@ const toPercent = (val: number) => `${val * 100}%`;
         <button class="px-4 py-1.5 text-xs font-bold rounded-md bg-sky-500/20 text-sky-400 border border-sky-500/30">
           Real-time
         </button>
-        <button class="px-4 py-1.5 text-xs font-bold rounded-md text-slate-500 hover:text-slate-300 transition-colors">
-          24h History
-        </button>
       </div>
     </div>
 

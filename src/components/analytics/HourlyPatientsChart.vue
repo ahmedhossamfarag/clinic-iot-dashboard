@@ -90,7 +90,7 @@ const chartOptions = computed<ApexCharts.ApexOptions>(() => ({
     <div class="flex items-center justify-between mb-6">
       <h2 class="text-white font-semibold text-lg tracking-wide">Peak User Activity</h2>
       <div class="flex items-center gap-2 bg-[#1A2535] px-3 py-1.5 rounded-lg cursor-pointer select-none">
-        <span class="text-[#8CA0B8] text-xs font-mono">Last 7 Hours</span>
+        <span class="text-[#8CA0B8] text-xs font-mono">Last Hours</span>
         <svg class="w-3.5 h-3.5 text-[#8CA0B8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>
