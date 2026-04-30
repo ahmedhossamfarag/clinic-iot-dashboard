@@ -131,7 +131,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch, onMounted } from 'vue'
+import { reactive, watch, onMounted } from 'vue'
 import RouterLocationPicker, { type Location } from './RouterLocationPicker.vue'
 import { useRouters } from '../../utils/hooks/routers'
 import { useBlueprint } from '../../utils/hooks/settings';

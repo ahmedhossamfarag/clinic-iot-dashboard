@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { onMounted } from 'vue';
 import MainLayout from '../components/shared/layout/MainLayout.vue';
 import PlaceHolder from '../components/shared/layout/PlaceHolder.vue';
 import { useHourlyPatients, useHourlyRecords, useHourlySessionsDuration } from '@/utils/hooks/records';

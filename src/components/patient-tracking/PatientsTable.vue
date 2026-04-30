@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import type { DeviceWithRouterInfo } from '../../utils/types';
-import IconAction from '../shared/icons/IconAction.vue';
 import IconOptions from '../shared/icons/IconOptions.vue';
 const ACTIVE_TIMEOUT = Number(import.meta.env.VITE_ACTIVE_TIMEOUT) || 60;
 const IDLE_TIMEOUT = Number(import.meta.env.VITE_IDLE_TIMEOUT) || 120;

@@ -39,8 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { RouterLink } from 'vue-router'
+import { computed } from 'vue'
 import IconRouter from '../shared/icons/IconRouter.vue'
 import type { Router } from '@/utils/types'
 

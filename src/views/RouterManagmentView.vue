@@ -5,7 +5,6 @@ import MainLayout from '../components/shared/layout/MainLayout.vue';
 import RouterCard from '../components/router-managment/RouterCard.vue';
 import { useRouters, useRouterStatus } from '../utils/hooks/routers';
 import PlaceHolder from '../components/shared/layout/PlaceHolder.vue';
-import AddPatientModal from '../components/patient-tracking/AddPatientModal.vue';
 import { useNotifications } from '../utils/hooks/notifications';
 import AddRouterModal from '@/components/router-managment/AddRouterModal.vue';
 import type { Router } from '@/utils/types';
