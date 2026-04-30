@@ -17,11 +17,19 @@ onMounted(() => fetchBlueprint())
 <template>
     <div class="relative">
         <img class="w-full" :src="blueprintUrl || '/blueprint.png'" />
-        <div v-for="item in items" :key="item.id" class="absolute flex gap-3"
+        <div v-for="item in items" :key="item.id" class="absolute z-10"
             :style="{ top: `${item.location_x * 100}%`, left: `${item.location_y * 100}%` }">
-            <div class="w-4 h-4 rounded-full bg-[#27C08D] outline-16 outline-[#27C08D16] outline-offset-8"></div>
-            <div class="bg-[#259DF416] rounded-full py-1 px-2 text-white text-base min-w-8 text-center">
-                {{ item.connected_devices_count }}
+            <div
+                class="flex items-center gap-2 bg-slate-800/80 backdrop-blur-md border border-white/10 rounded-full py-1 pr-3 pl-1.5 shadow-lg shadow-black/20 hover:scale-105 transition-transform cursor-pointer">
+                <div class="relative flex h-3 w-3">
+                    <span
+                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                </div>
+
+                <span class="text-white text-sm font-semibold tabular-nums">
+                    {{ item.connected_devices_count }}
+                </span>
             </div>
         </div>
     </div>
