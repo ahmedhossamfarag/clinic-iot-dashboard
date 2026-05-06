@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, toRef } from 'vue';
 import type { DeviceWithRouterInfo } from '../../utils/types';
 import IconOptions from '../shared/icons/IconOptions.vue';
+import { useDevicesStates } from '@/utils/hooks/devices';
 const ACTIVE_TIMEOUT = Number(import.meta.env.VITE_ACTIVE_TIMEOUT) || 60;
 const IDLE_TIMEOUT = Number(import.meta.env.VITE_IDLE_TIMEOUT) || 120;
 const GROUP_SIZE = 10;
@@ -12,6 +13,10 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits(['view', 'release']);
+
+const states = useDevicesStates(toRef(props, 'items'));
+
+const statesLabels = ['Active', 'Idle', 'Offline'];
 
 const activeMenu = ref<string | null>(null);
 
@@ -90,7 +95,7 @@ const prevGroup = () => {
           <tr class="text-[11px] uppercase tracking-wider text-slate-500 border-b border-slate-800/60 bg-[#0f172a]/50">
             <th class="px-6 py-4 font-semibold">User Profile</th>
             <th class="px-6 py-4 font-semibold">Current Location</th>
-            <th class="px-6 py-4 font-semibold">Connected Device</th>
+            <th class="px-6 py-4 font-semibold">Laste State</th>
             <th class="px-6 py-4 font-semibold">Duration</th>
             <th class="px-6 py-4 font-semibold">Status</th>
             <th class="px-6 py-4 font-semibold text-right">Actions</th>
@@ -118,11 +123,9 @@ const prevGroup = () => {
             </td>
 
             <td class="px-6 py-5">
-              <div class="flex items-center gap-3">
-                <Router v-if="item.name.includes('GW')" :size="18" class="text-sky-500" />
-                <Smartphone v-else :size="18" class="text-sky-500" />
-                <div class="flex flex-col text-sm">
-                  <span class="text-slate-200 font-medium">{{ item.name }}</span>
+              <div class="flex items-center">
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-[11px] font-bold tracking-wide capitalize">
+                  <span>{{ states[item.id] ? statesLabels[states[item.id]! - 1] : 'Unknown' }}</span>
                 </div>
               </div>
             </td>

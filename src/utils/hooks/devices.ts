@@ -1,6 +1,7 @@
-import { computed, ref } from 'vue'
+import { computed, ref, watch, type Ref } from 'vue'
 import { getData, postData, putData } from '../api/http'
 import type { Device, DeviceWithRouterInfo, CreateDevicePayload } from '../types'
+import { createWSSClient } from '../api/ws'
 
 export function useDevices() {
   const devices = ref<Device[] | undefined>(undefined)
@@ -60,6 +61,22 @@ export function useDevicesWithRouterInfo() {
   }
 
   return { devices, loading, error, fetchDevicesWithRouterInfo }
+}
+
+export function useDevicesStates(devices: Ref<DeviceWithRouterInfo[]>) {
+  const states = ref<Record<string, number>>({})
+  let deviceMap = new Map(devices.value.map(d => [d.id, d]))
+  watch(devices, (newDevices) => {
+    deviceMap = new Map(newDevices.map(d => [d.id, d]))
+  }, { immediate: true })
+
+  createWSSClient((data: any) => {
+    if (data.device_id && data.state && deviceMap.has(data.device_id)) {
+      states.value[data.device_id] = data.state
+    }
+  })
+
+  return states
 }
 
 export function useDevicesPatients() {
