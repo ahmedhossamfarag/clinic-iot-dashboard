@@ -14,8 +14,6 @@ const { records: hourlyRecords, loading: hourlyRecordsLoading, fetchHourlyRecord
 const { sessions: hourlySessionsDuration, loading: hourlySessionsDurationLoading, fetchHourlySessionsDuration } = useHourlySessionsDuration();
 const { routersMap, loading: routersMapLoading, fetchRoutersMap } = useRoutersMap();
 
-console.log(hourlyRecords, hourlySessionsDuration)
-
 onMounted(() => {
     fetchHourlyPatients();
     fetchHourlyRecords();

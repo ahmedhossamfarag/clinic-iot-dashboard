@@ -85,7 +85,6 @@ export function useActiveRouters() {
     error.value = undefined
     try {
       const response = await getData<{ routers: Router[] }>('/routers/active')
-      console.log(response)
       routers.value = response.routers
     } catch (err) {
       error.value = (err as Error).message
