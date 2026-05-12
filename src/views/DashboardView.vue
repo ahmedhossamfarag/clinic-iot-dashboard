@@ -43,7 +43,7 @@ onUnmounted(() => {
             <div class="flex gap-6" v-else>
                 <Card title="Routers Count" :icon="IconRouter" :text="routersCount" icon-color="#259DF4"
                     icon-bg="#259DF416" />
-                <Card title="Devices Count" :icon="IconDevice" :text="devicesCount" icon-color="#10B981"
+                <Card title="Patients Count" :icon="IconDevice" :text="devicesCount" icon-color="#10B981"
                     icon-bg="#10B98116" />
             </div>
             <PlaceHolder v-if="loading" class="h-100" />
