@@ -74,9 +74,9 @@
                     type="button"
                     :disabled="loading"
                     class="absolute right-2 top-1/2 -translate-y-1/2 px-2.5 py-1.5 text-xs text-blue-400 hover:text-blue-300 bg-blue-500/10 hover:bg-blue-500/20 rounded-md transition-all duration-150 font-mono disabled:opacity-40 disabled:cursor-not-allowed"
-                    @click="generateRandomMAC"
+                    @click="scanForDevice"
                   >
-                    Generate
+                    Scan
                   </button>
                 </div>
                 <p v-if="errors.device_id" class="mt-1.5 text-xs text-red-400">{{ errors.device_id }}</p>
@@ -124,7 +124,7 @@
 <script setup lang="ts">
 import { reactive, watch } from 'vue'
 import { useDevices } from '../../utils/hooks/devices'
-import { generateMac } from '../../utils/mac'
+import { serialScan } from '../../utils/serial';
 
 const props = defineProps<{
   modelValue: boolean
@@ -163,8 +163,11 @@ function handleClose() {
   emit('update:modelValue', false)
 }
 
-function generateRandomMAC() {
-  form.device_id = generateMac()
+function scanForDevice() {
+  serialScan().then(({ mac, status }) => {
+    if (mac) form.device_id = mac
+    else errors.device_id = status
+  })
 }
 
 function validate(): boolean {
