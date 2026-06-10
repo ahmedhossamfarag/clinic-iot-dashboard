@@ -169,6 +169,7 @@ function handleClose() {
 
 function scanForDevice() {
   isScanning.value = true
+  delete errors.device_id
   serialScan().then(({ mac, status }) => {
     if (mac) form.device_id = mac
     else errors.device_id = status

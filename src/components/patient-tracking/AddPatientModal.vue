@@ -180,10 +180,12 @@ function handleClose() {
 
 function scanForDevice() {
   isScanning.value = true
+  delete errors.device_id
   serialScan().then(({ mac, status }) => {
     if (mac) {
       const device = freeDevices.value?.find(device => device.id === mac)
       if (device) form.device_id = device.id
+      else errors.device_id = 'Device not registered or already in use.'
     }
     else {
       errors.device_id = status
